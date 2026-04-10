@@ -1,0 +1,8 @@
+- hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+    - name: install hto
+      apt:
+        name: hto  
