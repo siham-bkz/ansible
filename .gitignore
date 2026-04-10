@@ -1,0 +1,69 @@
+# ============================================
+# SECRETS - NEVER COMMIT THESE!
+# ============================================
+*.vault
+*.secret
+*.key
+*.pem
+*_keys*
+*_secret*
+secrets/
+credentials/
+passwords/
+
+# ============================================
+# AWS CREDENTIALS
+# ============================================
+aws_resources/host_vars/localhost.yml
+*aws_credentials*
+*.aws/
+.aws/
+
+# ============================================
+# ANSIBLE SECRETS
+# ============================================
+*.vault
+ansible-vault-*
+vault_pass.txt
+vault.pass 
+
+# ============================================
+# ENVIRONMENT VARIABLES
+# ============================================
+.env
+.env.*
+*.env
+
+# ============================================
+# SENSITIVE CONFIG FILES
+# ============================================
+host_vars/*/secrets.yml
+group_vars/*/secrets.yml
+*/vault.yml
+
+# ============================================
+# IDE AND SYSTEM FILES
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ============================================
+# TEMPORARY FILES
+# ============================================
+*.retry
+*.log
+.ansible/
+__pycache__/
+*.pyc
+
+# ============================================
+# BACKUP FILES
+# ============================================
+*.backup
+*.old
+*.orig
