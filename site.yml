@@ -1,0 +1,61 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+    - name: update ubuntu reo (ubuntu)
+      tags: always                                                                                           
+      apt:                  
+        update-cache: yes
+#      when: ansible_distribution_version == "ubuntu"
+
+- hosts: all
+  become: true
+  tasks:
+
+
+    - name: add siham user
+      tags: always
+      user:
+        name: siham
+        groups: root
+    - name: add ssh key to the server
+      tags: always
+      authorized_key:
+        user: siham
+        key: ""
+    - name: add sudoer file for siham
+      tags: always
+      copy:
+        src: sudoer_siham
+        dest: /etc/sudoers.d/siham
+        owener: root
+        group: root
+        mode: 0440 
+
+
+    - name: install apache2 (ubuntu)
+      tags: ubuntu
+      apt:
+        name:
+          - apache2
+        state: latest        
+
+    - name: start apache service
+      service:
+        name: apache2         
+        state: started
+        enabled: yes 
+#      when: ansible_distribution == "ubuntu"
+      
+        
+
+      
+#    - name: install nginx and apache2 on a server and update  
+#     package:
+#        name:
+#         - nginx
+#          - apache2
+#        state: latest
+#        update_cache: yes

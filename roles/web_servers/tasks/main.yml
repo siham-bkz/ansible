@@ -1,0 +1,24 @@
+- name: install apache2 on ubuntu server
+  tags: ubuntu,apache2
+  apt:
+    name: 
+      - apache2
+      - libapache2-mod-php
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+
+- name: start apache service
+  tags: always
+  service: 
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: copy the html file to the server
+  tags: always
+  copy:
+    src: default.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 700

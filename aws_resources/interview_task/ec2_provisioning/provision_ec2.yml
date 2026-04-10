@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+
+    - name: provision three ec2 instances when one is amzon an tow are ubuntu on aws
+      ec2_instance:
+        name: "{{ item.name}}"
+        key_name: siham
+        instance_type: "t2.micro"
+        region: "us-east-1"
+        aws_access_key: "{{ ec2_access_key }}"
+        aws_secret_key: "{{ ec2_private_key }}"
+        network:
+          assign_public_ip: true
+        image_id: "{{ item.image }}"
+        tags:
+          envirement: "{{ item.name}}"
+      loop:
+        - { image: "ami-0ea87431b78a82070", name: "managed_node1" }
+        - { image: "ami-0ec10929233384c7f", name: "managed_node2" }
+        - { image: "ami-0ec10929233384c7f", name: "managed_node3" }
+
+
+

@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+
+    - name: install update (ubuntu)
+      tags: always
+      apt:
+        update_cache: true
+        upgrade: dist
+#      changed_when: false
+
+- hosts: all
+  become: true
+  tasks:
+    - name: add a user on the server
+      tags: always
+      user:
+        name: akamo
+        groups: root
+        
+    - name: add ssh key for the user
+      tags: always
+      authorized_key:
+        user: akamo
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDoyJ1gDEbXyOGM1ryqFaR+OODHIlMyhVahvX3dCoVLF siham"
+    - name: add sudoer file for the user
+      tags: always
+      copy:
+        src: akamo_sudoer
+        dest: /etc/sudoers.d
+        owner: root
+        group: root
+        mode: 0440
+        

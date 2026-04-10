@@ -1,0 +1,14 @@
+- name: add the ssh key to the akamo user
+  tags: always
+  authorized_key: 
+    user: akamo
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDoyJ1gDEbXyOGM1ryqFaR+OODHIlMyhVahvX3dCoVLF siham"
+    
+- name: add the users to the ssh config file
+  template:
+    src: "{{ssh_template_file}}"
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_sshd

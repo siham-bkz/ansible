@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: update the server
+      apt:
+        update_cache: yes
+        upgrade: dist
+        
+
+    - name: install openssh and openssl on ubuntu server
+      apt:
+        name: 
+          - openssh
+          - openssl
+        state: latest
+      ignore_errors: yes     
+
+    - name: veriffy if docker is installed on the servers
+      stat:
+        path: /usr/bin/docker
+      register: docker_check
+      changed_when: false
+      ignore_errors: yes
+
+    - name: print the output for the register
+      debug:
+        var: docker_check    
+
+    - name: install docker o the server if it is not istalled
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+      when: docker_check.failed == false  

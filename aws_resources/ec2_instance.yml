@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: launche an ec2 istance with public ip adress
+      ec2_instance:
+        name: "{{ec2_name}}"
+        instance_type: "{{type}}"
+        key_name: "{{key}}"
+        security_group: "{{security_group}}"
+        region: "{{region}}"
+        network:
+          assign_public_ip: true 
+          
+        image_id: "{{image}}" 
+        aws_access_key: "{{ec2_acces_key}}"
+        aws_secret_key: "{{ec2_private_key}}" 
+
