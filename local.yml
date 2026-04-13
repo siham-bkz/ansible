@@ -3,6 +3,6 @@
   become: true
 
   tasks:
-    - name: install hto
+    - name: install htop
       apt:
-        name: hto  
+        name: htop  
